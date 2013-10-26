@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 class State(models.Model):
     class Meta:
         app_label = 'projection_app'
+        db_table = 'careermap_state'
 
     def __unicode__(self):
         return self.state_name
@@ -18,6 +19,7 @@ class Occupation(models.Model):
     # "AreaName","Code","Name","Base","Proj","Change","PercentChange","AvgAnnualOpenings"
     class Meta:
         app_label = 'projection_app'
+        db_table = 'careermap_occupation'
 
     def __unicode__(self):
         return self.name
