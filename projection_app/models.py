@@ -25,9 +25,17 @@ class Occupation(models.Model):
         return self.name
 
     area_name = models.ForeignKey(State, to_field='state_name', null=True, blank=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
     base = models.IntegerField()
     proj = models.IntegerField()
     change = models.IntegerField()
     percentchange = models.IntegerField()
     avgannualopenings = models.IntegerField()
+
+
+class Name(models.Model):
+    class Meta:
+        app_label = 'projection_app'
+        db_table = 'careermap_name'
+
+    name = models.CharField(max_length=255, db_index=True, unique=True)
