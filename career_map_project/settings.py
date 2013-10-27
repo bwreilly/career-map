@@ -1,4 +1,7 @@
 # Django settings for career_map_project project.
+from os import path
+
+ROOT_DIR = path.dirname(path.abspath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -55,7 +58,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = path.join(ROOT_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -63,6 +66,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    path.join(ROOT_DIR, '../', 'projection_app', 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -99,9 +103,7 @@ ROOT_URLCONF = 'career_map_project.urls'
 WSGI_APPLICATION = 'career_map_project.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    path.join(ROOT_DIR, 'projection_app', 'templates')
 )
 
 INSTALLED_APPS = (
@@ -160,6 +162,13 @@ LOGGING = {
         },
     }
 }
+
+# Additional settings are sensitive or machine/db-specific
+# the following values are expected to be defined in local_settings:
+#   ADMINS
+#   MANAGERS
+#   SECRET_KEY
+#   DATABASES
 
 try:
     from local_settings import *

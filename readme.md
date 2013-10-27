@@ -1,6 +1,5 @@
 # Career Projections
 
-
 ## What
 Simple API and visualization for [state-by-state occupation projections](http://www.projectionscentral.com/Projections/LongTerm). This will include:
 

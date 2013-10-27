@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block header %}
+	<!-- blank intentionally -->
+{% endblock header %}
+{% block main %}
+
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Welcome to Economizr!</h1>
+        <p>Improve your skills, discover careers, get qualified for your dream job.</p>
+        <p><a class="btn primary large">Learn more &raquo;</a></p>
+
+      </div>
+      <div class="row">
+        <div class="span-two-thirds">
+          <h2>Find what you want to do</h2>
+          <p>Discover the career you want, interesting, challenging, and in high-demand.</p>
+          <p><a class="btn" href="#">Find Career &raquo;</a></p>
+
+          <h2>Get Qualified</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">Get Qualified &raquo;</a></p>
+
+          <h2>Get Connected and Recommended</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">Find People &raquo;</a></p>
+      </div>
+      <div class="span-one-third">
+      	{% load url from future %}
+      	<form method="post" action="{% url 'careertraining.views.login_or_create' %}">
+			{% csrf_token %}
+			<table>
+			<tr>
+			    <td>{{ form.username.label_tag }}</td>
+			    <td>{{ form.username }}</td>
+			</tr>
+			<tr>
+			    <td>{{ form.password.label_tag }}</td>
+			    <td>{{ form.password }}</td>
+			</tr>
+			</table>
+
+			<input type="submit" value="Login or Create Account" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+      </div>
+
+{% endblock %}

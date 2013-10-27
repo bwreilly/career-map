@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block header %}
+	<!-- blank intentionally -->
+{% endblock header %}
+{% block main %}
+<div class="page-header">
+  <h1>Career Projections 2018</h1>
+</div>
+	<div class="container-fluid">
+    <div class="row-fluid">
+    	<label for='search'>Occupation:</label><input id='search' class='searchbox' type="text" data-provide="typeahead" autocomplete="off">
+    	<div class="btn-group" data-toggle="buttons-radio">
+			  <button type="button" class="btn btn active">Growth</button>
+			  <button type="button" class="btn btn">Projected Total</button>
+			  <button type="button" class="btn btn">Avg Annual Openings</button>
+			</div>
+    	<h2 id='maptitle'></h2>
+	    <div id="mapcontainer" />
+	  </div>
+  </div>
+{% endblock %}
+{% block foot_scripts %}
+<script src="{{ STATIC_URL }}js/libs/d3.v2.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/underscore-min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/backbone-min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/bootstrap-button.js"></script>
+<script src="{{ STATIC_URL }}js/libs/bootstrap-typeahead.js"></script>
+<script src="{{ STATIC_URL }}js/map.js"></script>
+{% endblock %}
