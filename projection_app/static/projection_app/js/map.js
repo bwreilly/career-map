@@ -4,9 +4,6 @@ State = Backbone.Model.extend();
 States = Backbone.Collection.extend({
   model: State,
   url: '/static/projection_app/js/states.json',
-  parse: function(results) {
-    return results.objects;
-  }
 });
 
 StateMap = Backbone.View.extend({
@@ -54,14 +51,14 @@ StateMap = Backbone.View.extend({
         .attr("width", view.w)
         .attr("height", view.h);
 
-    var states = svg.append("svg:g")
+    var states_svg = svg.append("svg:g")
         .attr("id", "states");
 
     var metric = view.metric;
     var median, stddev;
 
     if (metric !== 'percentchange'){
-      var vals = _(occupations.pluck('properties')).pluck(metric);
+      var vals = _.pluck(occupations, metric);
       median = vals.sort()[25];
       var total = _(vals).reduce(function(m, f) {
         return f + m;
@@ -79,18 +76,20 @@ StateMap = Backbone.View.extend({
       .domain([median - stddev, median, median + stddev])
       .range(d3.range(9));
 
-    var features = occupations.toJSON();
-    var map = states.selectAll("path")
+    // var features = occupations.toJSON();
+    var states = new States();
+    states.fetch();
+    var map = states_svg.selectAll("path")
       .data(features)
     .enter().append("svg:path")
       .attr("d", view.path)
       .attr("class", function(d) {
-        return "q" + quantize(d.properties[view.metric]) + "-9";
+        return "q" + quantize(d[view.metric]) + "-9";
       });
-    map.append("svg:text")
-      .text(function(d) {
-        return d.properties["state"]["state_name"] + ": " + d.properties[view.metric];
-      });
+    // map.append("svg:text")
+    //   .text(function(d) {
+    //     return d.properties["state"]["state_name"] + ": " + d.properties[view.metric];
+    //   });
 
     $('path').hover(function(e){
       console.log(e.target.textContent);
