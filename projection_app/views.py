@@ -2,8 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from rest_framework import viewsets
 
-from serializers import OccupationSerializer, StateSerializer
-from filters import NameFilter
+from serializers import OccupationSerializer, StateSerializer, NameSerializer
 from models import Occupation, State, Name
 
 
@@ -23,5 +22,14 @@ class OccupationViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class NameViewSet(viewsets.ReadOnlyModelViewSet):
-    model = Name
-    filter_class = NameFilter
+    serializer_class = NameSerializer
+    queryset = Name.objects.all()
+    paginate_by = 10
+
+
+    def get_queryset(self):
+        name = self.request.QUERY_PARAMS.get('name', None)
+        queryset = self.queryset
+        if name is not None:
+            queryset = self.queryset.filter(name__icontains=name)
+        return queryset
