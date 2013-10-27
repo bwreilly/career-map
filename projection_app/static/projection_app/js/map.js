@@ -1,66 +1,11 @@
-
-// State = Backbone.Model.extend();
-// States = Backbone.Collection.extend({
-//   model: State,
-//   url: '/api/v1/state/?format=json',
-//   parse: function(results) {
-//     return results.objects;
-//   }
-// });
-
 // http://www.projectionscentral.com/Projections/AboutLT
 
-Occupation = Backbone.Model.extend();
-Occupations = Backbone.Collection.extend({
-  model: Occupation,
-  url: '/api/v1/occupation/?format=json',
-  geojson: function(f) {
-    return {
-        "type": "Feature",
-        "id": f.id,
-        "properties": f,
-        "geometry": f["state"]["geometry"]
-    };
-  },
+State = Backbone.Model.extend();
+States = Backbone.Collection.extend({
+  model: State,
+  url: '/api/v1/state/?format=json',
   parse: function(results) {
-    return _.map(results.objects, this.geojson);
-  }
-});
-
-MainView = Backbone.View.extend({
-  el: '#main',
-  statistics: {
-    'Growth': 'percentchange',
-    'Projected Total': 'proj',
-    'Avg Annual Openings': 'avgannualopenings'
-  },
-  events: {
-    'click  button': 'update_stat'
-  },
-  names: function(query, process) {
-    $.getJSON('api/v1/occupation/', {'name__icontains': query, 'state__id': 1, 'format': 'json'},
-      function(d) {
-        process(_(d.objects).pluck('name'));
-    });
-  },
-  update_stat: function(e) {
-    var view = this;
-    view.map.metric = view.statistics[e.target.textContent];
-    view.map.render();
-  },
-  update: function(item) {
-    this.map.name = item;
-    this.map.collection.fetch({data: {"name": item}, 'reset': true});
-    return item;
-  },
-  initialize: function() {
-    _.bindAll(this);
-    var view = this;
-    view.map = new StateMap();
-    $('#search').typeahead({
-      updater: view.update,
-      source: view.names
-    });
+    return results.objects;
   }
 });
 
@@ -152,9 +97,4 @@ StateMap = Backbone.View.extend({
       $(e.target).popover({'container': e.target});
     });
   }
-});
-
-$(function() {
-  var main = new MainView();
-
 });
