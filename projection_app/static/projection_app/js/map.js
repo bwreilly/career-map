@@ -29,30 +29,30 @@ StateMap = Backbone.View.extend({
     occupations.on("reset", view.render, view);
     view.collection = occupations;
 
-    var projection = d3.geo.azimuthal()
-      .mode("equiarea")
-      .origin([-98, 38])
-      .scale(1200)
-      .translate([410, 340]);
+    var projection = d3.geo.albersUsa();
 
-    view.path = d3.geo.path()
+    var path = d3.geo.path()
       .projection(projection);
+
+    view.draw(path);
   },
-  draw: function() {
-    console.log('welp');
-  },
-  render: function() {
+  draw: function(path) {
     var view = this;
-    var occupations = this.collection;
-    $('#maptitle').html(view.name);
-    d3.select("#mapcontainer").html('');
     var svg = d3.select("#mapcontainer").append("svg:svg")
         .attr("class", "RdYlGn")
         .attr("width", view.w)
         .attr("height", view.h);
 
-    var states_svg = svg.append("svg:g")
-        .attr("id", "states");
+    d3.json("/static/projection_app/js/states.json", function(error, us) {
+      svg.append("path")
+        .datum(topojson.feature(us, us.objects.states))
+        .attr("d", path);
+    });
+  },
+  render: function() {
+    var view = this;
+    var occupations = this.collection;
+    $('#maptitle').html(view.name);
 
     var metric = view.metric;
     var median, stddev;
@@ -60,40 +60,60 @@ StateMap = Backbone.View.extend({
     if (metric !== 'percentchange'){
       var vals = _.pluck(occupations, metric);
       median = vals.sort()[25];
+
       var total = _(vals).reduce(function(m, f) {
         return f + m;
       }, 0);
+
       var avg = total / 50;
       stddev = Math.sqrt(vals.reduce(function(a, x) {
         return Math.pow(x - avg, 2) + a;
       }, 0) / 50);
+
     } else {
       median = view.metric_stats[metric]['median'];
       stddev = view.metric_stats[metric]['stddev'];
     }
+
     var pad = d3.format("05d");
     var quantize = d3.scale.quantize()
       .domain([median - stddev, median, median + stddev])
       .range(d3.range(9));
 
+    // d3.json("/static/projection_app/js/states.json", function(error, us) {
+    //   // states_svg.append("path")
+    //   //     .datum(topojson.feature(us, us.objects.states))
+    //   //     .attr("d", view.path)
+    //   //     .attr("class", function(d) {
+    //   //       return "q" + quantize(d[view.metric]) + "-9";
+    //   //     });
+    //   states_svg.selectAll("path")
+    //     .data(topojson.feature(us, us.objects.states).features)
+    //   .enter().append("path")
+    //     .attr("class", function(d) {
+    //       return "q" + quantize(d[view.metric]) + "-9";
+    //     })
+    //     .attr("d", view.path);
+    // });
+
     // var features = occupations.toJSON();
-    var states = new States();
-    states.fetch();
-    var map = states_svg.selectAll("path")
-      .data(features)
-    .enter().append("svg:path")
-      .attr("d", view.path)
-      .attr("class", function(d) {
-        return "q" + quantize(d[view.metric]) + "-9";
-      });
+    // var states = new States();
+    // states.fetch();
+    // var map = states_svg.selectAll("path")
+    //   .data(features)
+    // .enter().append("svg:path")
+    //   .attr("d", view.path)
+    //   .attr("class", function(d) {
+    //     return "q" + quantize(d[view.metric]) + "-9";
+    //   });
     // map.append("svg:text")
     //   .text(function(d) {
     //     return d.properties["state"]["state_name"] + ": " + d.properties[view.metric];
     //   });
 
-    $('path').hover(function(e){
-      console.log(e.target.textContent);
-      $(e.target).popover({'container': e.target});
-    });
+    // $('path').hover(function(e){
+    //   console.log(e.target.textContent);
+    //   $(e.target).popover({'container': e.target});
+    // });
   }
 });
