@@ -3,7 +3,7 @@
 State = Backbone.Model.extend();
 States = Backbone.Collection.extend({
   model: State,
-  url: '/api/v1/state/?format=json',
+  url: '/static/projection_app/js/states.json',
   parse: function(results) {
     return results.objects;
   }

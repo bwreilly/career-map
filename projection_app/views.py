@@ -1,9 +1,11 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from rest_framework import viewsets
+from rest_framework.renderers import BrowsableAPIRenderer
 
 from serializers import OccupationSerializer, StateSerializer, NameSerializer
 from models import Occupation, State, Name
+from renderers import GeoJSONRenderer
 
 
 def index(request):
@@ -11,6 +13,8 @@ def index(request):
 
 
 class StateViewSet(viewsets.ReadOnlyModelViewSet):
+    renderer_classes = (BrowsableAPIRenderer, GeoJSONRenderer)
+
     queryset = State.objects.all()
     serializer_class = StateSerializer
 
