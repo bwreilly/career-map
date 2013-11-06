@@ -25,15 +25,11 @@ MainView = Backbone.View.extend({
       function(d) {
         view.chart.data({"projections": d.results}).update();
     });
-    
-    // this.map.name = item;
-    // this.map.collection.fetch({data: {"name": item}, 'reset': true});
     return item;
   },
   initialize: function() {
     _.bindAll(this);
     var view = this;
-    // view.map = new StateMap();
     $('#search').typeahead({
       updater: view.update,
       source: view.names
@@ -53,5 +49,4 @@ MainView = Backbone.View.extend({
 
 $(function() {
   var main = new MainView();
-  console.log("welp");
 });
