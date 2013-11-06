@@ -4,13 +4,33 @@
   "data": [
     {
       "name": "projections",
-      "url": "api/occupations/?name=Computer Programmers&format=json",
-      "format": {"type": "json", "property": "results"}
+      "url": "api/occupations/?name=Computer Software Engineers, Applications&format=json",
+      "format": {"type": "json", "property": "results", "parse": {"percentchange":"number"}}
     },
     {
       "name": "states",
       "url": "static/projection_app/js/states.json",
-      "format": {"type": "topojson", "feature": "states"}
+      "format": {"type": "topojson", "feature": "states"},
+      "transform": [
+        {
+          "type": "zip",
+          "key": "data.properties.state_name",
+          "with": "projections",
+          "withKey": "data.area_name",
+          "as": "value",
+          "default": null
+        },
+        {"type":"filter", "test":"d.value!=null"}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "quantize",
+      "domain": [-10, 10],
+      "range": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
+                "#4292c6", "#2171b5", "#08519c", "#08306b"]
     }
   ],
   "marks": [
@@ -27,10 +47,16 @@
       "properties": {
         "enter": { 
           "stroke": {"value": "#fff"},
-          "path": {"field": "path"} 
+          "path": {"field": "path"}
         },
-        "update": { "fill": {"value": "grey"}},
-        "hover": { "fill": {"value": "black"}}
+        "update": {
+          "fill": {
+            "scale":"color",
+            "field":"value.data.percentchange"
+          },
+          "fillOpacity": {"value": 1}
+        },
+        "hover": { "fillOpacity": {"value": 0.5}}
       }
     }
   ]
