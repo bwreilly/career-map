@@ -3,24 +3,24 @@
   "height": 500,
   "data": [
     {
-      "name": "projections",
-      "url": "api/occupations/?name=Computer Software Engineers, Applications&format=json",
-      "format": {"type": "json", "property": "results", "parse": {"percentchange":"number"}}
-    },
-    {
       "name": "states",
       "url": "static/projection_app/js/states.json",
-      "format": {"type": "topojson", "feature": "states"},
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    {
+      "name": "projections",
+      "url": "api/occupations/?name=Computer Software Engineers, Applications&format=json",
+      "format": {"type": "json", "property": "results", "parse": {"percentchange":"number"}},
       "transform": [
         {
           "type": "zip",
-          "key": "data.properties.state_name",
-          "with": "projections",
-          "withKey": "data.area_name",
-          "as": "value",
+          "key": "data.area_name",
+          "with": "states",
+          "withKey": "data.properties.state_name",
+          "as": "state",
           "default": null
         },
-        {"type":"filter", "test":"d.value!=null"}
+        {"type":"filter", "test":"d.state!=null"}
       ]
     }
   ],
@@ -37,10 +37,10 @@
     {
       "type": "path",
       "from": {
-        "data": "states",
+        "data": "projections",
         "transform": [{
           "type": "geopath",
-          "value": "data",
+          "value": "state.data",
           "projection": "albersUsa"
         }]
       },
@@ -52,7 +52,7 @@
         "update": {
           "fill": {
             "scale":"color",
-            "field":"value.data.percentchange"
+            "field":"data.percentchange"
           },
           "fillOpacity": {"value": 1}
         },
