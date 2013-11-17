@@ -27,17 +27,89 @@
   "scales": [
     {
       "name": "percentchange",
-      "type": "threshold",
-      "domain": [-50, -20, -10, -5, -0, 5, 10, 20, 50],
-      "range": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
-                "#4292c6", "#2171b5", "#08519c", "#08306b"]
+      "type": "quantile",
+      "domain": [-20, -10, -5, 0, 5, 10, 20],
+      "range": [
+        "#FF0D00",
+        "#FF1A00",
+        "#FF2600",
+        "#FF3300",
+        "#FF4000",
+        "#FF4C00",
+        "#FF5900",
+        "#FF6600",
+        "#FF7300",
+        "#FF8000",
+        "#FF8C00",
+        "#FF9900",
+        "#FFA600",
+        "#FFB200",
+        "#FFBF00",
+        "#FFCC00",
+        "#FFD900",
+        "#FFE600",
+        "#FFF200",
+        "#FFFF00",
+        "#F2FC00",
+        "#E6FA00",
+        "#D9F700",
+        "#CCF500",
+        "#BFF200",
+        "#B2F000",
+        "#A6ED00",
+        "#99EB00",
+        "#8CE800",
+        "#80E600",
+        "#73E300",
+        "#66E000",
+        "#59DE00",
+        "#4DDB00",
+        "#40D900",
+        "#33D600",
+        "#26D400",
+        "#19D100",
+        "#0DCF00",
+        "#00CC00"
+      ]
     },
     {
       "name": "openings",
       "type": "quantize",
       "domain": {"data": "projections", "field": "data.avgannualopenings"},
-      "range": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
-                "#4292c6", "#2171b5", "#08519c", "#08306b"]
+      "range":[
+        "#E6FAE6",
+        "#CCF5CC",
+        "#B2F0B2",
+        "#99EB99",
+        "#80E680",
+        "#66E066",
+        "#4DDB4D",
+        "#33D633",
+        "#19D119"
+      ]
+    }
+  ],
+  "legends": [
+    {
+      "fill": "percentchange",
+      "title": "Growth (%)",
+      "offset": 10,
+      "properties": {
+        "title": {
+          "fontSize": {"value": 14}
+        },
+        "labels": {
+          "fontSize": {"value": 12}
+        },
+        "gradient": {
+          "fillOpacity": {"value": 0.5},
+          "stroke": {"value": "transparent"}
+        },
+        "legend": {
+         "stroke": {"value": "#ccc"},
+         "strokeWidth": {"value": 1.5}
+       }
+      }
     }
   ],
   "marks": [
@@ -58,8 +130,8 @@
         },
         "update": {
           "fill": {
-            "scale":"openings",
-            "field":"data.avgannualopenings"
+            "scale":"percentchange",
+            "field":"data.percentchange"
           },
           "fillOpacity": {"value": 1}
         },
