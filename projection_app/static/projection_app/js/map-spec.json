@@ -9,8 +9,8 @@
     },
     {
       "name": "projections",
-      "url": "api/occupations/?name=Computer Software Engineers, Applications&format=json",
-      "format": {"type": "json", "property": "results", "parse": {"percentchange":"number"}},
+      "url": "api/occupations/?name=Electrical Engineers&format=json",
+      "format": {"type": "json", "property": "results"},
       "transform": [
         {
           "type": "zip",
@@ -26,9 +26,16 @@
   ],
   "scales": [
     {
-      "name": "color",
+      "name": "percentchange",
+      "type": "threshold",
+      "domain": [-50, -20, -10, -5, -0, 5, 10, 20, 50],
+      "range": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
+                "#4292c6", "#2171b5", "#08519c", "#08306b"]
+    },
+    {
+      "name": "openings",
       "type": "quantize",
-      "domain": [-10, 10],
+      "domain": {"data": "projections", "field": "data.avgannualopenings"},
       "range": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
                 "#4292c6", "#2171b5", "#08519c", "#08306b"]
     }
@@ -51,8 +58,8 @@
         },
         "update": {
           "fill": {
-            "scale":"color",
-            "field":"data.percentchange"
+            "scale":"openings",
+            "field":"data.avgannualopenings"
           },
           "fillOpacity": {"value": 1}
         },

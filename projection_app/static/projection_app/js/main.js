@@ -16,8 +16,9 @@ MainView = Backbone.View.extend({
   },
   update_stat: function(e) {
     var view = this;
-    view.map.metric = view.statistics[e.target.textContent];
-    view.map.render();
+    view.chart.update({"props": "update"});
+    // view.map.metric = view.statistics[e.target.textContent];
+    // view.map.render();
   },
   update: function(item) {
     var view = this;
