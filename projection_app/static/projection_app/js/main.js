@@ -16,7 +16,17 @@ MainView = Backbone.View.extend({
   },
   update_stat: function(e) {
     var view = this;
-    view.chart.update({"props": "update"});
+    var x = {
+      "update": {
+          "fill": {
+            "scale":"openings",
+            "field":"data.avgannualopenings"
+          }
+        }
+      };
+    view.chart.update(x);
+
+    // view.chart.update({"props": "update", "items":x});
     // view.map.metric = view.statistics[e.target.textContent];
     // view.map.render();
   },
@@ -24,7 +34,7 @@ MainView = Backbone.View.extend({
     var view = this;
     $.getJSON('api/occupations/', {'name': item, 'format': 'json'},
       function(d) {
-        view.chart.data({"projections": d.results}).update();
+        view.chart.data({"projections": d.results}).update({duration:500, ease:"linear"});
     });
     return item;
   },
