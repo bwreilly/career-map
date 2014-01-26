@@ -79,41 +79,5 @@ StateMap = Backbone.View.extend({
     var quantize = d3.scale.quantize()
       .domain([median - stddev, median, median + stddev])
       .range(d3.range(9));
-
-    // d3.json("/static/projection_app/js/states.json", function(error, us) {
-    //   // states_svg.append("path")
-    //   //     .datum(topojson.feature(us, us.objects.states))
-    //   //     .attr("d", view.path)
-    //   //     .attr("class", function(d) {
-    //   //       return "q" + quantize(d[view.metric]) + "-9";
-    //   //     });
-    //   states_svg.selectAll("path")
-    //     .data(topojson.feature(us, us.objects.states).features)
-    //   .enter().append("path")
-    //     .attr("class", function(d) {
-    //       return "q" + quantize(d[view.metric]) + "-9";
-    //     })
-    //     .attr("d", view.path);
-    // });
-
-    // var features = occupations.toJSON();
-    // var states = new States();
-    // states.fetch();
-    // var map = states_svg.selectAll("path")
-    //   .data(features)
-    // .enter().append("svg:path")
-    //   .attr("d", view.path)
-    //   .attr("class", function(d) {
-    //     return "q" + quantize(d[view.metric]) + "-9";
-    //   });
-    // map.append("svg:text")
-    //   .text(function(d) {
-    //     return d.properties["state"]["state_name"] + ": " + d.properties[view.metric];
-    //   });
-
-    // $('path').hover(function(e){
-    //   console.log(e.target.textContent);
-    //   $(e.target).popover({'container': e.target});
-    // });
   }
 });

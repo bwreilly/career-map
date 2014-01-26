@@ -12,6 +12,10 @@ Simple API and visualization for [state-by-state occupation projections from the
 
 My partner was looking into a variety of different engineering degrees, and I wanted to show where the jobs were for those options.
 
+## What's with South Dakota?
+
+Couldn't find anything for South Dakota. Perhaps they declined to participate. If anyone happens to know where to find it, I would be happy to add it in.
+
 ## Rights
 
 BLS data is public domain. Go nuts.
