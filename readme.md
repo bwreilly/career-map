@@ -26,14 +26,14 @@ BLS data is public domain. Go nuts.
 
 For the code:
 
-Non-Commercial: [BSD](http://opensource.org/licenses/BSD-2-Clause).
-Commercial: Email me.
+- Non-Commercial: [BSD](http://opensource.org/licenses/BSD-2-Clause).
+- Commercial: Email me.
 
 ## Thanks
 
-[Bureau of Labor Statistics](http://www.bls.gov/) and [Projections Central](http://www.projectionscentral.com/Projections/LongTerm)
-[django](https://www.djangoproject.com/)
-[django-rest-framework](http://django-rest-framework.org/)
-[d3js](http://d3js.org/)
-[vega](https://github.com/trifacta/vega)
-[backbone](http://backbonejs.org/)
+- [Bureau of Labor Statistics](http://www.bls.gov/) and [Projections Central](http://www.projectionscentral.com/Projections/LongTerm)
+- [django](https://www.djangoproject.com/)
+- [django-rest-framework](http://django-rest-framework.org/)
+- [d3js](http://d3js.org/)
+- [vega](https://github.com/trifacta/vega)
+- [backbone](http://backbonejs.org/)
