@@ -16,6 +16,10 @@ My partner was looking into a variety of different engineering degrees, and I wa
 
 Couldn't find anything for South Dakota. Perhaps they declined to participate. If anyone happens to know where to find it, I would be happy to add it in.
 
+## Contribute
+
+The front end particularly is very much a work in progress. Pull requests welcome.
+
 ## Rights
 
 BLS data is public domain. Go nuts.

@@ -1,5 +1,3 @@
-// http://www.projectionscentral.com/Projections/AboutLT
-
 State = Backbone.Model.extend();
 States = Backbone.Collection.extend({
   model: State,
